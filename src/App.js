@@ -1,10 +1,20 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import './App.css'
+import BugsList from './components/BugsList'
+import BugItem from './components/BugItem'
 
-function App() {
-  return (
-    <h1>hello</h1>
-  )
+class App extends Component {
+  render () {
+    return (
+      <Router>
+        <Switch>
+          <Route path='/bugslist' component={BugsList} />
+          <Route path='/bugitem' component={BugItem} />
+        </Switch>
+      </Router>
+    )
+  }
 }
 
-export default App;
+export default App
