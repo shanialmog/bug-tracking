@@ -7,10 +7,10 @@ import BugItem from './components/BugItem/'
 class App extends Component {
   render () {
     return (
-      <Router basename='/bugs'>
+      <Router>
         <Switch>
-          <Route path='/' exact component={BugsList} />
-          <Route path='/bugitem' exact component={BugItem} />
+          <Route path='/bugs' exact component={BugsList} />
+          <Route path='/bugs/:bugid' exact component={BugItem} />
         </Switch>
       </Router>
     )

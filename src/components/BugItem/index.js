@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 class BugItem extends Component {
   constructor (props) {
@@ -13,9 +12,7 @@ class BugItem extends Component {
 
   render () {
     return (
-      <Link to='/bugitem'>
-        <h1>Bug{this.state.id}</h1>
-      </Link>
+      <h1>Bug{this.state.id}</h1>
     )
   }
 }

@@ -32,13 +32,13 @@ class BugsList extends Component {
         <Link to='/'>
           <h1>Bugs List</h1>
         </Link>
-        <Link to='/bugitem'>
-          {
-            this.state.bugList.map(item =>
-              <BugItem key={item.id} {...item} />
-            )
-          }
-        </Link>
+        {
+          this.state.bugList.map(item =>
+            <Link key={item.id} to={`/bugs/${item.id}`}>
+              <BugItem {...item} />
+            </Link>
+          )
+        }
       </div>
     )
   }
