@@ -4,7 +4,7 @@ class BugItem extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.id,
+      id: this.props.match ? this.props.match.params.bugid : null,
       title: this.props.title,
       description: this.props.description
     }
@@ -12,7 +12,9 @@ class BugItem extends Component {
 
   render () {
     return (
-      <h1>Bug{this.state.id}</h1>
+      <div>
+        <h1>Bug {this.state.id}</h1>
+      </div>
     )
   }
 }

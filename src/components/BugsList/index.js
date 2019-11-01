@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import BugItem from '../BugItem'
 
 class BugsList extends Component {
   constructor () {
@@ -35,7 +34,9 @@ class BugsList extends Component {
         {
           this.state.bugList.map(item =>
             <Link key={item.id} to={`/bugs/${item.id}`}>
-              <BugItem {...item} />
+              <div>
+                Bug {item.id}
+              </div>
             </Link>
           )
         }
