@@ -1,3 +1,5 @@
+import { Exception } from "handlebars"
+
 const mocks = {
   '/bugs': [
     {
@@ -25,6 +27,9 @@ const sleep = ms => {
 const API = {
   get: async url => {
     await sleep(1000)
+    if (Math.random() < 0.5) {
+      throw new Exception('Network error')
+    }
     if (typeof mocks[url] !== 'undefined') {
       return mocks[url]
     }

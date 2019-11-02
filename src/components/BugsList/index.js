@@ -7,13 +7,20 @@ class BugsList extends Component {
     super()
     this.state = {
       bugs: [],
-      isLoading: true
+      isLoading: true,
+      err: false
     }
   }
 
-  async componentDidMount () {
-    const bugs = await API.get('/bugs')
-    this.setState({ bugs, isLoading: false })
+  componentDidMount () {
+    this.setState({ err: false }, async () => {
+      try {
+        const bugs = await API.get('/bugs')
+        this.setState({ bugs, isLoading: false })
+      } catch (_e) {
+        this.setState({ err: 'Could not load bugs, please try again' })
+      }
+    })
   }
 
   render () {
@@ -23,14 +30,17 @@ class BugsList extends Component {
           <h1>Bugs List</h1>
         </Link>
         {
-          this.state.isLoading
-            ? <div>Loading bugs...</div>
-            : this.state.bugs.map(item =>
-              <Link key={item.id} to={`/bugs/${item.id}`}>
-                <div>
-                  {item.title}
-                </div>
-              </Link>
+          this.state.err
+            ? <div>{this.state.err}</div>
+            : (this.state.isLoading
+              ? <div>Loading bugs...</div>
+              : this.state.bugs.map(item =>
+                <Link key={item.id} to={`/bugs/${item.id}`}>
+                  <div>
+                    {item.title}
+                  </div>
+                </Link>
+              )
             )
         }
       </div>
