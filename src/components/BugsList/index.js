@@ -1,28 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import API from '../../utils/API'
 
 class BugsList extends Component {
   constructor () {
     super()
     this.state = {
-      bugList: [
-        {
-          id: 1,
-          title: '',
-          description: ''
-        },
-        {
-          id: 2,
-          title: '',
-          description: ''
-        },
-        {
-          id: 3,
-          title: '',
-          description: ''
-        }
-      ]
+      bugs: []
     }
+  }
+
+  async componentDidMount () {
+    const bugs = await API.get('/bugs')
+    this.setState({ bugs })
   }
 
   render () {
@@ -32,10 +22,10 @@ class BugsList extends Component {
           <h1>Bugs List</h1>
         </Link>
         {
-          this.state.bugList.map(item =>
+          this.state.bugs.map(item =>
             <Link key={item.id} to={`/bugs/${item.id}`}>
               <div>
-                Bug {item.id}
+                {item.title}
               </div>
             </Link>
           )
