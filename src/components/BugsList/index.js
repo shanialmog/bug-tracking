@@ -6,13 +6,14 @@ class BugsList extends Component {
   constructor () {
     super()
     this.state = {
-      bugs: []
+      bugs: [],
+      isLoading: true
     }
   }
 
   async componentDidMount () {
     const bugs = await API.get('/bugs')
-    this.setState({ bugs })
+    this.setState({ bugs, isLoading: false })
   }
 
   render () {
@@ -22,13 +23,15 @@ class BugsList extends Component {
           <h1>Bugs List</h1>
         </Link>
         {
-          this.state.bugs.map(item =>
-            <Link key={item.id} to={`/bugs/${item.id}`}>
-              <div>
-                {item.title}
-              </div>
-            </Link>
-          )
+          this.state.isLoading
+            ? <div>Loading bugs...</div>
+            : this.state.bugs.map(item =>
+              <Link key={item.id} to={`/bugs/${item.id}`}>
+                <div>
+                  {item.title}
+                </div>
+              </Link>
+            )
         }
       </div>
     )
