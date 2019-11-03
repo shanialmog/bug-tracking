@@ -20,6 +20,7 @@ class BugsList extends Component {
       } catch (_e) {
         this.setState({ err: 'Could not load bugs, please try again' })
       }
+
     })
   }
 
