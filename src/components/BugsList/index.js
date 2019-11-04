@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import API from '../../utils/API'
+import Typography from '@material-ui/core/Typography'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { Container } from '@material-ui/core'
 
 class BugsList extends Component {
   constructor () {
@@ -20,31 +24,34 @@ class BugsList extends Component {
       } catch (_e) {
         this.setState({ err: 'Could not load bugs, please try again' })
       }
-
     })
   }
 
   render () {
     return (
-      <div>
-        <Link to='/'>
-          <h1>Bugs List</h1>
-        </Link>
+      <Container maxWidth='xl'>
+        <Typography variant='h2' component='h2' gutterBottom>Bugs List</Typography>
         {
           this.state.err
-            ? <div>{this.state.err}</div>
+            ? (
+              <SnackbarContent
+                message={
+                  this.state.err
+                }
+              />
+            )
             : (this.state.isLoading
-              ? <div>Loading bugs...</div>
+              ? <CircularProgress />
               : this.state.bugs.map(item =>
                 <Link key={item.id} to={`/bugs/${item.id}`}>
-                  <div>
+                  <Typography variant='subtitle1' gutterBottom>
                     {item.title}
-                  </div>
+                  </Typography>
                 </Link>
               )
             )
         }
-      </div>
+      </Container>
     )
   }
 }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
+import Typography from '@material-ui/core/Typography'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { Container } from '@material-ui/core'
 
 class BugItem extends Component {
   constructor (props) {
@@ -36,24 +40,31 @@ class BugItem extends Component {
 
   render () {
     return (
-      <div>
-        <h1>{this.state.title}</h1>
+      <Container maxWidth='xl'>
+        <Typography variant='h4' gutterBottom>{this.state.title}</Typography>
         {
           this.state.err
-            ? <div>{this.state.err}</div>
+            ? (
+              <SnackbarContent
+                message={
+                  this.state.err
+                }
+              />
+            )
             : (
               this.state.isLoading
-                ? <div>Loading bug...</div>
-                :
-                <div>
-                  <div>{this.state.description}</div>
-                  <div>{this.state.attachments}</div>
-                  <div>{this.state.timeline}</div>
-                  <div>{this.state.createdAt}</div>
-                </div>
+                ? <CircularProgress />
+                : (
+                  <div>
+                    <Typography variant='subtitle1' gutterBottom>{this.state.description}</Typography>
+                    <Typography variant='subtitle1' gutterBottom>{this.state.attachments}</Typography>
+                    <Typography variant='subtitle1' gutterBottom>{this.state.timeline}</Typography>
+                    <Typography variant='subtitle1' gutterBottom>{this.state.createdAt}</Typography>
+                  </div>
+                )
             )
         }
-      </div>
+      </Container>
     )
   }
 }
