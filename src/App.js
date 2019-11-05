@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css'
 import BugsList from './components/BugsList/'
 import BugItem from './components/BugItem/'
+import NewBug from './components/NewBug/'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path='/bugs' exact component={BugsList} />
+            <Route path='/bugs/newbug' exact component={NewBug} />
             <Route path='/bugs/:bugid' exact component={BugItem} />
           </Switch>
         </Router>

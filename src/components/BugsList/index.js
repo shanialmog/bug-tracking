@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Container } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
 
 class BugsList extends Component {
   constructor () {
@@ -31,6 +32,17 @@ class BugsList extends Component {
     return (
       <Container maxWidth='xl'>
         <Typography variant='h2' component='h2' gutterBottom>Bugs List</Typography>
+        <div>
+          <Link to='/bugs/newbug'>
+            <Button
+              variant='contained'
+              color='primary'
+              style={{ marginBottom: '15px' }}
+            >
+              Add bug
+            </Button>
+          </Link>
+        </div>
         {
           this.state.err
             ? (
