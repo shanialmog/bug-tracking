@@ -39,7 +39,7 @@ class BugsList extends Component {
               color='primary'
               style={{ marginBottom: '15px' }}
             >
-              Add bug
+              New bug
             </Button>
           </Link>
         </div>
