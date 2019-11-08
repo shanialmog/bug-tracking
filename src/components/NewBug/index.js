@@ -16,7 +16,6 @@ class NewBug extends Component {
 
     this.handleFormChange = this.handleFormChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-
   }
 
   handleFormChange (event) {

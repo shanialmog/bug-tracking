@@ -1,4 +1,4 @@
-const mocks = {
+const getMocks = {
   '/bugs': [
     {
       id: 1,
@@ -9,9 +9,6 @@ const mocks = {
     }, {
       id: 3,
       title: 'Missing documentation'
-    }, {
-      id: 4,
-      title: 'Links are broken'
     }
   ],
   '/bugs/1': {
@@ -54,16 +51,35 @@ const sleep = ms => {
   })
 }
 
+const maybeThrow = async () => {
+  await sleep(1000)
+  if (Math.random() < 0.5) {
+    throw new Error('Network error')
+  }
+}
+
+const thrownNotFound = () => {
+  throw new Error('404 Not found')
+}
+
 const API = {
   get: async url => {
-    await sleep(1000)
-    if (Math.random() < 0.5) {
-      throw new Error('Network error')
+    await maybeThrow()
+    if (typeof getMocks[url] !== 'undefined') {
+      return getMocks[url]
     }
-    if (typeof mocks[url] !== 'undefined') {
-      return mocks[url]
+    thrownNotFound()
+  },
+  post: async (url, payload) => {
+    await maybeThrow()
+    switch (url) {
+      case '/posts':
+        getMocks['/bugs/4'].title = payload.title
+        getMocks['/bugs/4'].description = payload.description
+        return { id: 4 }
+      default:
+        thrownNotFound()
     }
-    return null
   }
 }
 
