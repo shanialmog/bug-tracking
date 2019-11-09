@@ -73,7 +73,7 @@ const API = {
   post: async (url, payload) => {
     await maybeThrow()
     switch (url) {
-      case '/posts':
+      case '/bugs':
         getMocks['/bugs/4'].title = payload.title
         getMocks['/bugs/4'].description = payload.description
         return { id: 4 }

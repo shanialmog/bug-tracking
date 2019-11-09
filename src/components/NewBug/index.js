@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import uuid from 'uuid/v4'
+import API from '../../utils/API'
 import Typography from '@material-ui/core/Typography'
 import { Container } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
@@ -9,9 +9,10 @@ class NewBug extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: uuid(),
       title: 'Title',
-      description: 'Description'
+      description: 'Description',
+      isLoading: false,
+      err: false
     }
 
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -27,7 +28,17 @@ class NewBug extends Component {
 
   handleFormSubmit (event) {
     event.preventDefault()
-    console.log('id: ' + this.state.id, 'title: ' + this.state.title, 'description: ' + this.state.description)
+    this.setState({ err: false, isLoading: true }, async () => {
+      try {
+        const newBug = await API.post('/bugs', {
+          title: this.state.title,
+          description: this.state.description
+        })
+        console.log(newBug.id)
+      } catch (_e) {
+        this.setState({ err: 'could not save bug, try again' })
+      }
+    })
   }
 
   render () {
@@ -37,7 +48,6 @@ class NewBug extends Component {
         <form
           onSubmit={this.handleFormSubmit}
         >
-          <h4>Bug ID:{this.state.id}</h4>
           <TextField
             label='Bug name'
             onChange={this.handleFormChange}
