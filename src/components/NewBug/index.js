@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import API from '../../utils/API'
 import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { Container } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -74,12 +75,14 @@ class NewBug extends Component {
             />
           </div>
           <Button
+            disabled={this.state.isLoading}
             variant='contained'
             size='small'
             color='primary'
             type='submit'
           >
-              Add bug
+            Add bug
+            {this.state.isLoading && <CircularProgress size={18} style={{ marginLeft: 10 }} />}
           </Button>
         </form>
       </Container>
