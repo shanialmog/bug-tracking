@@ -37,7 +37,7 @@ class NewBug extends Component {
         })
         console.log(newBug.id)
       } catch (_e) {
-        this.setState({ err: 'could not save bug, try again' })
+        this.setState({ err: 'could not save bug, try again', isLoading: false })
       }
     })
   }
@@ -74,6 +74,7 @@ class NewBug extends Component {
               variant='outlined'
             />
           </div>
+          {this.state.err && <h4>{this.state.err}</h4>}
           <Button
             disabled={this.state.isLoading}
             variant='contained'
