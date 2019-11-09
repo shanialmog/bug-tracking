@@ -35,7 +35,7 @@ class NewBug extends Component {
           title: this.state.title,
           description: this.state.description
         })
-        console.log(newBug.id)
+        this.props.history.push(`/bugs/${newBug.id}`)
       } catch (_e) {
         this.setState({ err: 'could not save bug, try again', isLoading: false })
       }
