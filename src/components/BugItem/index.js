@@ -4,6 +4,12 @@ import Typography from '@material-ui/core/Typography'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Container } from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import Divider from '@material-ui/core/Divider'
 
 class BugItem extends Component {
   constructor (props) {
@@ -56,10 +62,19 @@ class BugItem extends Component {
                 ? <CircularProgress />
                 : (
                   <div>
-                    <Typography variant='subtitle1' gutterBottom>{this.state.description}</Typography>
                     <Typography variant='subtitle1' gutterBottom>{this.state.attachments}</Typography>
-                    <Typography variant='subtitle1' gutterBottom>{this.state.timeline}</Typography>
-                    <Typography variant='subtitle1' gutterBottom>{this.state.createdAt}</Typography>
+                    <List style={{ border: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar alt={this.state.timeline[0].user.username} src={this.state.timeline[0].user.thumbnail} />
+                        </ListItemAvatar>
+                        <ListItemText primary={this.state.timeline[0].user.username} secondary={this.state.createdAt} />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText secondary={this.state.description} />
+                      </ListItem>
+                    </List>
                   </div>
                 )
             )

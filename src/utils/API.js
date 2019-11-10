@@ -16,7 +16,25 @@ const getMocks = {
     title: 'First bug',
     description: 'This is the first bug',
     attachments: [],
-    timeline: [],
+    timeline: [{
+      type: 'comment',
+      time: 1573415515,
+      user: {
+        thumbnail: 'https://avatars1.githubusercontent.com/u/40774580?s=88&v=4',
+        username: 'shanialmog'
+      },
+      content: 'this is the first comment'
+    },
+    {
+      type: 'comment',
+      time: 1573416515,
+      user: {
+        thumbnail: 'https://avatars1.githubusercontent.com/u/40774580?s=88&v=4',
+        username: 'shanialmog'
+      },
+      content: 'this is the second comment'
+    }
+    ],
     createdAt: '2019-11-02'
   },
   '/bugs/2': {
