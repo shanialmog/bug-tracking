@@ -10,6 +10,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Divider from '@material-ui/core/Divider'
+import moment from 'moment'
+
 
 class BugItem extends Component {
   constructor (props) {
@@ -70,7 +72,7 @@ class BugItem extends Component {
                             <ListItemAvatar>
                               <Avatar alt={item.user.username} src={item.user.thumbnail} />
                             </ListItemAvatar>
-                            <ListItemText primary={item.user.username} secondary={item.time} />
+                            <ListItemText primary={item.user.username} secondary={moment.unix(item.time).format('DD/MM/YYYY')} />
                           </ListItem>
                           <Divider />
                           <ListItem>
