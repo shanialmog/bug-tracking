@@ -63,18 +63,22 @@ class BugItem extends Component {
                 : (
                   <div>
                     <Typography variant='subtitle1' gutterBottom>{this.state.attachments}</Typography>
-                    <List style={{ border: '1px solid rgba(0, 0, 0, 0.12)' }}>
-                      <ListItem>
-                        <ListItemAvatar>
-                          <Avatar alt={this.state.timeline[0].user.username} src={this.state.timeline[0].user.thumbnail} />
-                        </ListItemAvatar>
-                        <ListItemText primary={this.state.timeline[0].user.username} secondary={this.state.createdAt} />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText secondary={this.state.description} />
-                      </ListItem>
-                    </List>
+                    {
+                      this.state.timeline.map(item =>
+                        <List key={item.id} style={{ border: '1px solid rgba(0, 0, 0, 0.12)', marginBottom: 10 }}>
+                          <ListItem>
+                            <ListItemAvatar>
+                              <Avatar alt={item.user.username} src={item.user.thumbnail} />
+                            </ListItemAvatar>
+                            <ListItemText primary={item.user.username} secondary={item.time} />
+                          </ListItem>
+                          <Divider />
+                          <ListItem>
+                            <ListItemText secondary={item.content} />
+                          </ListItem>
+                        </List>
+                      )
+                    }
                   </div>
                 )
             )
