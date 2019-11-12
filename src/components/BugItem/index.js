@@ -11,7 +11,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Divider from '@material-ui/core/Divider'
 import moment from 'moment'
-
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 class BugItem extends Component {
   constructor (props) {
@@ -24,8 +25,18 @@ class BugItem extends Component {
       timeline: [],
       createdAt: '',
       isLoading: true,
-      err: false
+      err: false,
+      comment: 'Comment here'
     }
+    this.handleFormChange = this.handleFormChange.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  }
+
+  handleFormChange (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
   }
 
   componentDidMount () {
@@ -46,10 +57,30 @@ class BugItem extends Component {
     })
   }
 
+  handleFormSubmit (event) {
+    event.preventDefault()
+    console.log('comment: ' + this.state.comment)
+  }
+
   render () {
+    const bugTimeline = this.state.timeline.map(item =>
+      <List key={item.id + item.time} style={{ border: '1px solid rgba(0, 0, 0, 0.12)', marginBottom: 10 }}>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar alt={item.user.username} src={item.user.thumbnail} />
+          </ListItemAvatar>
+          <ListItemText primary={item.user.username} secondary={moment.unix(item.time).format('DD/MM/YYYY')} />
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemText secondary={item.content} />
+        </ListItem>
+      </List>
+    )
     return (
       <Container maxWidth='xl'>
         <Typography variant='h4' gutterBottom>{this.state.title}</Typography>
+        <Typography variant='h6' gutterBottom>{this.state.description}</Typography>
         {
           this.state.err
             ? (
@@ -64,23 +95,37 @@ class BugItem extends Component {
                 ? <CircularProgress />
                 : (
                   <div>
-                    <Typography variant='subtitle1' gutterBottom>{this.state.attachments}</Typography>
                     {
-                      this.state.timeline.map(item =>
-                        <List key={item.id} style={{ border: '1px solid rgba(0, 0, 0, 0.12)', marginBottom: 10 }}>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar alt={item.user.username} src={item.user.thumbnail} />
-                            </ListItemAvatar>
-                            <ListItemText primary={item.user.username} secondary={moment.unix(item.time).format('DD/MM/YYYY')} />
-                          </ListItem>
-                          <Divider />
-                          <ListItem>
-                            <ListItemText secondary={item.content} />
-                          </ListItem>
-                        </List>
-                      )
+                      bugTimeline
                     }
+                    <form
+                      onSubmit={this.handleFormSubmit}
+
+                    >
+                      <div>
+                        <TextField
+                          onChange={this.handleFormChange}
+                          type='text'
+                          name='comment'
+                          value={this.state.comment}
+                          id='standard-full-width'
+                          multiline
+                          rows='4'
+                          margin='normal'
+                          variant='outlined'
+                        />
+                      </div>
+                      <Button
+                        disabled={this.state.isLoading}
+                        variant='contained'
+                        size='small'
+                        color='primary'
+                        type='submit'
+                      >
+                        Add comment
+                        {this.state.isLoading && <CircularProgress size={18} style={{ marginLeft: 10 }} />}
+                      </Button>
+                    </form>
                   </div>
                 )
             )
