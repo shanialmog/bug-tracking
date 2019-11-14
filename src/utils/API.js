@@ -71,7 +71,7 @@ const sleep = ms => {
 
 const maybeThrow = async () => {
   await sleep(1000)
-  if (Math.random() < 0.5) {
+  if (Math.random() < 0.1) {
     throw new Error('Network error')
   }
 }
@@ -95,6 +95,8 @@ const API = {
         getMocks['/bugs/4'].title = payload.title
         getMocks['/bugs/4'].description = payload.description
         return { id: 4 }
+      case '/bugs/1/comments':
+        return { id: 1 }
       default:
         thrownNotFound()
     }

@@ -59,7 +59,32 @@ class BugItem extends Component {
 
   handleFormSubmit (event) {
     event.preventDefault()
-    console.log('comment: ' + this.state.comment)
+    this.setState({ err: false, isLoading: true }, async () => {
+      try {
+        await API.post(`/bugs/${this.state.id}/comments`, {
+          comment: this.state.comment
+        })
+        this.setState({
+          timeline: [
+            ...this.state.timeline,
+            {
+              type: 'comment',
+              time: 1573415515,
+              user: {
+                thumbnail: 'https://avatars1.githubusercontent.com/u/40774580?s=88&v=4',
+                username: 'shanialmog'
+              },
+              content: this.state.comment
+            }
+          ],
+          isLoading: false,
+          comment: 'Comment here'
+        })
+        console.log(this.state.timeline)
+      } catch (_e) {
+        this.setState({ err: 'could add comment, try again', isLoading: false })
+      }
+    })
   }
 
   render () {
